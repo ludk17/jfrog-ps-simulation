@@ -30,7 +30,7 @@ jobs:
         run: echo "DLT Compliance Manifest - KriptoStream Data Feed - $(date -u)" > dlt-manifest.txt
 
       - name: Upload manifest to Artifactory
-        run: jf rt upload dlt-manifest.txt krypto-data-npm-dev-local/ --build-name=krypto-build --build-number=${{ github.run_number }}
+        run: jf rt upload dlt-manifest.txt krypto-data-npm-dev-local/ --build-name=krypto-build --build-number=${{ github.run_number }} --project=krypto-data
 
       - name: Collect Build Info environment variables
         run: jf rt build-add-git krypto-build ${{ github.run_number }} --project=krypto-data
