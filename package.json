@@ -4,6 +4,6 @@
   "description": "KriptoStream Data Feed - DLT Transformation Project",
   "private": true,
   "dependencies": {
-    "lodash": "4.16.11"
+    "lodash": "4.17.15"
   }
 }
