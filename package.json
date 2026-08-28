@@ -1,0 +1,9 @@
+{
+  "name": "kriptostream-data-feed",
+  "version": "1.0.0",
+  "description": "KriptoStream Data Feed - DLT Transformation Project",
+  "private": true,
+  "dependencies": {
+    "lodash": "4.16.11"
+  }
+}
