@@ -1,0 +1,43 @@
+name: JFrog OIDC - DLT Manifest Publish
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  JF_URL: https://trialza1fod.jfrog.io
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JFrog CLI with OIDC
+        id: setup-jfrog-cli
+        uses: jfrog/setup-jfrog-cli@v4
+        env:
+          JF_URL: ${{ env.JF_URL }}
+        with:
+          oidc-provider-name: krypto-data-github-oidc
+          oidc-audience: krypto-data-github-oidc
+
+      - name: Create DLT manifest file
+        run: echo "DLT Compliance Manifest - KriptoStream Data Feed - $(date -u)" > dlt-manifest.txt
+
+      - name: Upload manifest to Artifactory
+        run: jf rt upload dlt-manifest.txt krypto-data-npm-dev-local/
+
+      - name: Collect Build Info environment variables
+        run: jf rt build-add-git krypto-build ${{ github.run_number }}
+
+      - name: Collect environment variables into Build Info
+        run: jf rt build-collect-env krypto-build ${{ github.run_number }}
+
+      - name: Publish Build Info to Artifactory
+        run: jf rt build-publish krypto-build ${{ github.run_number }}
+        
