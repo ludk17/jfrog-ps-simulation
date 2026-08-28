@@ -33,11 +33,10 @@ jobs:
         run: jf rt upload dlt-manifest.txt krypto-data-npm-dev-local/
 
       - name: Collect Build Info environment variables
-        run: jf rt build-add-git krypto-build ${{ github.run_number }}
+        run: jf rt build-add-git krypto-build ${{ github.run_number }} --project=krypto-data
 
       - name: Collect environment variables into Build Info
-        run: jf rt build-collect-env krypto-build ${{ github.run_number }}
+        run: jf rt build-collect-env krypto-build ${{ github.run_number }} --project=krypto-data
 
       - name: Publish Build Info to Artifactory
-        run: jf rt build-publish krypto-build ${{ github.run_number }}
-        
+        run: jf rt build-publish krypto-build ${{ github.run_number }} --project=krypto-data
